@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أضرار وفوائد التواصل الاجتماعي</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&display=swap');
+        body {
+            /* استخدام خط Noto Naskh Arabic للعربية و Inter للإنجليزي */
+            font-family: 'Noto Naskh Arabic', 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            color: #1e293b;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            /* تحديد الاتجاه الافتراضي لـ RTL */
+            right: 0; 
+            left: auto;
+            width: 50%;
+            height: 4px;
+            background-color: #f59e0b; 
+            border-radius: 9999px;
+        }
+        /* تعديل الاتجاه لـ LTR لضمان تمركز الخط بشكل صحيح */
+        [dir="ltr"] .section-title::after {
+            left: 0;
+            right: auto;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- شريط التنقل (Header) -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 id="brand-name" class="text-2xl font-bold text-amber-600" data-key="brandName">توازن اجتماعي</h1>
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <!-- زر تبديل اللغة -->
+                <button id="language-toggle" class="bg-gray-200 text-gray-700 font-semibold px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300 flex items-center shadow-md">
+                    <span class="ml-2">EN / AR</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-18m-5.25 18C4.5 21 2 18 2 12c0-6 2.5-9 8.5-9m0 18c6 0 8.5-3 8.5-9 0-6-2.5-9-8.5-9m-4 5a3.5 3.5 0 0 1 7 0" />
+                    </svg>
+                </button>
+
+                <!-- روابط التنقل الرئيسية (للدسك توب) - تم التعديل إلى gap-x-8 لضمان مسافات ثابتة في LTR و RTL -->
+                <nav class="hidden md:flex gap-x-8 text-lg font-medium">
+                    <a href="#home" class="text-gray-600 hover:text-amber-600 transition duration-300" data-key="navHome">الرئيسية</a>
+                    <a href="#mental" class="text-gray-600 hover:text-amber-600 transition duration-300" data-key="navMental">الأضرار النفسية</a>
+                    <a href="#social" class="text-gray-600 hover:text-amber-600 transition duration-300" data-key="navSocial">الأضرار الاجتماعية</a>
+                    <a href="#benefits" class="text-gray-600 hover:text-amber-600 transition duration-300" data-key="navBenefits">الفوائد والاستخدام السليم</a>
+                    <a href="#solutions" class="text-gray-600 hover:text-amber-600 transition duration-300" data-key="navSolutions">الحلول العملية</a>
+                </nav>
+            </div>
+            <!-- زر قائمة الجوال -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-amber-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- قائمة الروابط القابلة للانهيار (قائمة الجوال) -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <nav class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-stretch text-center border-t border-gray-100">
+                <a href="#home" class="text-gray-600 hover:bg-gray-50 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navHome">الرئيسية</a>
+                <a href="#mental" class="text-gray-600 hover:bg-gray-50 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navMental">الأضرار النفسية</a>
+                <a href="#social" class="text-gray-600 hover:bg-gray-50 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navSocial">الأضرار الاجتماعية</a>
+                <a href="#benefits" class="text-gray-600 hover:bg-gray-50 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navBenefits">الفوائد والاستخدام السليم</a>
+                <a href="#solutions" class="text-gray-600 hover:bg-gray-50 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navSolutions">الحلول العملية</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي (Hero) -->
+    <section id="home" class="bg-amber-600 text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 id="hero-title" class="text-4xl md:text-6xl font-extrabold mb-4 animate-fadeIn" data-key="heroTitle">التوازن في التواصل الاجتماعي</h2>
+            <p id="hero-subtitle" class="text-xl md:text-2xl mb-8 opacity-90" data-key="heroSubtitle">كيف تؤثر المنصات الرقمية على صحتنا وعلاقاتنا، والخطوات اللازمة لاستعادة السيطرة.</p>
+            <a href="#benefits" id="hero-button" class="inline-block bg-white text-amber-600 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105" data-key="heroButton">اكتشف الإيجابيات</a>
+        </div>
+    </section>
+
+    <!-- قسم الأضرار النفسية -->
+    <section id="mental" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 id="mental-section-title" class="text-3xl md:text-4xl font-bold mb-12 text-center section-title mx-auto" data-key="mentalTitle">التأثيرات السلبية على الصحة العقلية</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- بطاقة 1: القلق والمقارنة -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-red-500 mb-4 mx-auto w-12 h-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.174 3.35 1.94 3.35h14.71c1.766 0 2.806-1.85 1.94-3.35L12.94 3.376c-.866-1.5-3.15-1.5-4.016 0L3.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800" data-key="cardMental1Title">وهم الكمال والمقارنة الاجتماعية</h4>
+                    <p class="text-gray-600" data-key="cardMental1Text">رؤية نسخ منقحة ومثالية لحياة الآخرين تؤدي إلى خلق معايير غير واقعية، مما يقلل من الرضا الذاتي ويزيد من أعراض القلق والاكتئاب.</p>
+                </div>
+                <!-- بطاقة 2: العزلة والوحدة -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-amber-500 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-amber-500 mb-4 mx-auto w-12 h-12">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a7.488 7.488 0 0 1-11.964 0M12 3a7.5 7.5 0 0 0 0 15m0 0a1.5 1.5 0 0 1 0 3m0 0a7.5 7.5 0 0 0 7.5-7.5m-15 0a7.5 7.5 0 0 1 7.5-7.5M8.25 10.5h.008v.008H8.25V10.5Zm6.008 0h.008v.008h-.008V10.5Z" /></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800" data-key="cardMental2Title">العزلة الاجتماعية والشعور بالوحدة</h4>
+                    <p class="text-gray-600" data-key="cardMental2Text">على الرغم من "التواصل" مع الآلاف، يؤدي التفاعل السطحي والزائف عبر الإنترنت إلى استبدال العلاقات الحقيقية، مما يعمق الشعور بالوحدة والعزلة.</p>
+                </div>
+                <!-- بطاقة 3: إدمان الدوبامين -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-green-500 mb-4 mx-auto w-12 h-12">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800" data-key="cardMental3Title">آلية إدمان الإشعارات</h4>
+                    <p class="text-gray-600" data-key="cardMental3Text">تعمل الإشعارات والإعجابات كمكافآت عشوائية تحفز إفراز الدوبامين، مما يخلق حلقة إدمانية تجعل المستخدم يتفقد المنصات بشكل قهري.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأضرار الاجتماعية -->
+    <section id="social" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 id="social-section-title" class="text-3xl md:text-4xl font-bold mb-12 text-center section-title mx-auto" data-key="socialTitle">تفكيك العلاقات الاجتماعية والواقعية</h3>
+
+            <div class="space-y-12">
+                <!-- مشكلة 1: تدهور التفاعلات الوجه لوجه -->
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-xl shadow-lg transition duration-300">
+                    <!-- استخدام الفئات md:order-2 و md:order-1 لتبديل ترتيب الأعمدة على الجوال مقابل الديسكتوب -->
+                    <div class="md:w-1/2 p-4 order-2 md:order-1">
+                        <h4 class="text-2xl font-semibold mb-4 text-gray-800" data-key="social1MainTitle">غياب الجودة في الحوار</h4>
+                        <p class="text-gray-600 leading-relaxed" data-key="social1MainText">تتضاءل قدرة الأفراد على قراءة الإشارات غير اللفظية وإجراء محادثات عميقة، حيث يتم استبدالها بالرسائل النصية السريعة والرموز التعبيرية.</p>
+                        <ul class="list-disc list-inside mt-4 text-gray-600 space-y-2">
+                            <li data-key="social1List1">فقدان مهارات الاستماع الفعال.</li>
+                            <li data-key="social1List2">ضعف التعاطف في التفاعلات.</li>
+                            <li data-key="social1List3">تفضيل "الدردشة" على "اللقاء".</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 p-4 order-1 md:order-2 flex justify-center">
+                        <img src="https://placehold.co/400x300/a8a29e/ffffff?text=Quality+Conversation+Loss" alt="صورة لمجموعة تتحدث بدلاً من استخدام الهواتف" class="rounded-lg shadow-md w-full max-w-sm">
+                    </div>
+                </div>
+
+                <!-- مشكلة 2: الخصوصية والمراقبة -->
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-xl shadow-lg transition duration-300">
+                    <div class="md:w-1/2 p-4 order-1">
+                        <img src="https://placehold.co/400x300/4f46e5/ffffff?text=Privacy+Violation" alt="رمز للخصوصية والمراقبة" class="rounded-lg shadow-md w-full max-w-sm">
+                    </div>
+                    <div class="md:w-1/2 p-4 order-2">
+                        <h4 class="text-2xl font-semibold mb-4 text-gray-800" data-key="social2MainTitle">التضحية بالخصوصية مقابل الاتصال</h4>
+                        <p class="text-gray-600 leading-relaxed" data-key="social2MainText">تتطلب المنصات الاجتماعية مشاركة كميات هائلة من البيانات الشخصية، مما يعرض المستخدمين للمراقبة والاستهداف الإعلاني، ويقلل من وعيهم بقيمة الخصوصية.</p>
+                        <ul class="list-disc list-inside mt-4 text-gray-600 space-y-2">
+                            <li data-key="social2List1">الاستهداف الإعلاني المكثف.</li>
+                            <li data-key="social2List2">خطر انتهاك البيانات.</li>
+                            <li data-key="social2List3">التحكم في الرأي العام عبر الخوارزميات.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- قسم الفوائد والاستخدام السليم (الجديد) -->
+    <section id="benefits" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 id="benefits-section-title" class="text-3xl md:text-4xl font-bold mb-12 text-center section-title mx-auto" data-key="benefitsTitle">التفاعل الإيجابي: فوائد التواصل والاستخدام السليم</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- عمود الفوائد -->
+                <div>
+                    <h4 class="text-2xl font-semibold mb-6 text-amber-600" data-key="benefitsSubTitle">أهم الإيجابيات لشبكات التواصل</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start p-4 bg-white rounded-lg shadow-md">
+                            <div class="text-amber-500 mt-1 ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25h.375M16.5 7.5h-3M3 16.5V4.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 4.5v13.5a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-1.5M9.75 9.75h.008v.008H9.75V9.75Z" /></svg>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-gray-800" data-key="benefit1Title">الوصول للمعلومات والتعلم</h5>
+                                <p class="text-gray-600 text-sm" data-key="benefit1Text">تعتبر مصدراً غنياً للمعرفة والأخبار العاجلة، وفرصة للتعلم الذاتي واكتساب مهارات جديدة من خلال المحتوى التعليمي المتخصص.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-white rounded-lg shadow-md">
+                            <div class="text-amber-500 mt-1 ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.125A7.5 7.5 0 0 1 12 21.75c-2.31 0-4.47-1.121-5.756-2.975M15 19.125c-3.155 0-5.836-1.89-7.146-4.68A2.25 2.25 0 0 0 9.75 12H12a2.25 2.25 0 0 0 2.25-2.25V9A2.25 2.25 0 0 0 12 6.75a3 3 0 0 1-3-3m0 0a.75.75 0 0 0-.583-.728M9 6.75v1.5m-3-1.5a.75.75 0 0 0-.583-.728m0 0a.75.75 0 0 0-.087-.015m-.591-.01c-1.272 0-2.31.968-2.31 2.16 0 .58.26 1.124.718 1.543m-.718-2.16c.361-.837 1.05-1.536 1.884-1.896m7.915 4.417a2.25 2.25 0 0 1-.583.728M15 6.75V4.5m-1.5 0h-3V4.5M16.5 10.5h.008v.008h-.008V10.5Zm2.766 6.837A2.25 2.25 0 0 0 20.25 12V9c0-1.296-.86-2.483-2.063-2.898m-.75 9.75H12a2.25 2.25 0 0 1-2.25-2.25v-1.5m-3-4.5h-.008v.008h.008v-.008Z" /></svg>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-gray-800" data-key="benefit2Title">دعم الروابط البعيدة</h5>
+                                <p class="text-gray-600 text-sm" data-key="benefit2Text">تساعد في البقاء على اتصال مع الأصدقاء والعائلة الذين يعيشون بعيداً، وتكوين شبكات احترافية وعلمية عابرة للحدود الجغرافية.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- عمود الاستخدام السليم -->
+                <div>
+                    <h4 class="text-2xl font-semibold mb-6 text-amber-600" data-key="usageSubTitle">إرشادات الاستخدام الواعي</h4>
+                    <ul class="space-y-4 text-gray-800">
+                        <li class="flex items-start">
+                            <div class="text-green-500 mt-1 ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            </div>
+                            <div>
+                                <strong data-key="usage1Title">تحقيق الهدف قبل التصفح:</strong> <span class="text-gray-600" data-key="usage1Text">استخدم المنصة لغرض محدد (مثل قراءة خبر أو إرسال رسالة) ثم أغلقها فوراً.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mt-1 ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            </div>
+                            <div>
+                                <strong data-key="usage2Title">فلترة المحتوى بوعي:</strong> <span class="text-gray-600" data-key="usage2Text">توقف عن متابعة الحسابات التي تستنزف طاقتك أو تثير مشاعر سلبية أو مقارنات غير مجدية.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mt-1 ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            </div>
+                            <div>
+                                <strong data-key="usage3Title">التحقق قبل المشاركة:</strong> <span class="text-gray-600" data-key="usage3Text">تجنب نشر الشائعات أو المعلومات غير المؤكدة، وكن مساهماً إيجابياً في الحوار العام.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الحلول العملية -->
+    <section id="solutions" class="py-16 md:py-24 bg-amber-600 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 id="solutions-section-title" class="text-3xl md:text-4xl font-bold mb-12 section-title mx-auto text-white" data-key="solutionsTitle">خطوات نحو التوازن الاجتماعي الرقمي</h3>
+            <p id="solutions-subtitle" class="text-lg opacity-90 mb-10" data-key="solutionsSubtitle">استعد سيطرتك وابنِ علاقات ذات معنى:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- حل 1: الانقطاع الرقمي -->
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+                    <h4 class="text-xl font-semibold mb-3" data-key="sol1Title">الصيام الرقمي</h4>
+                    <p class="text-gray-600" data-key="sol1Text">خصص أيامًا أو عطلات نهاية الأسبوع للانقطاع التام عن جميع منصات التواصل لتهدئة العقل وإعادة ضبطه.</p>
+                </div>
+                <!-- حل 2: إزالة الإشعارات -->
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+                    <h4 class="text-xl font-semibold mb-3" data-key="sol2Title">تقنية الدخول المخطط</h4>
+                    <p class="text-gray-600" data-key="sol2Text">بدلاً من التصفح العشوائي، حدد أوقاتاً معينة (مثل 15 دقيقة مرتين يومياً) لـ "الدخول والانتهاء".</p>
+                </div>
+                <!-- حل 3: بدائل اجتماعية -->
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+                    <h4 class="text-xl font-semibold mb-3" data-key="sol3Title">أولوية العلاقات الواقعية</h4>
+                    <p class="text-gray-600" data-key="sol3Text">اجعل الأولوية للقاء الأصدقاء والعائلة وجهًا لوجه. استثمر طاقتك في بناء الروابط العميقة لا السطحية.</p>
+                </div>
+                <!-- حل 4: فرز المتابعات -->
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+                    <h4 class="text-xl font-semibold mb-3" data-key="sol4Title">فرز المحتوى بعناية</h4>
+                    <p class="text-gray-600" data-key="sol4Text">ألغِ متابعة أي حساب يجعلك تشعر بالسوء أو النقص، وركز على المحتوى الملهم والتعليمي.</p>
+                </div>
+            </div>
+            <a href="#home" id="back-to-top" class="mt-12 inline-block bg-white text-amber-600 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105" data-key="backToTop">عد إلى الأعلى</a>
+        </div>
+    </section>
+
+    <!-- التذييل (Footer) -->
+     <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p data-key="footerCopy">Developed by: Mazen Ahmed Saad 2025</p>
+            <div class="flex justify-center space-x-4 space-x-reverse mt-4 text-sm">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300" data-key="footerPrivacy">سياسة الخصوصية</a>
+                <a href="tel:+201099206578" class="text-gray-400 hover:text-white transition duration-300" data-key="footerContact">اتصل بنا</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // كائن الترجمة: مفاتيح النصوص لكل لغة
+        const translations = {
+            ar: {
+                brandName: 'توازن اجتماعي',
+                navHome: 'الرئيسية',
+                navMental: 'الأضرار النفسية',
+                navSocial: 'الأضرار الاجتماعية',
+                navBenefits: 'الفوائد والاستخدام السليم', 
+                navSolutions: 'الحلول العملية',
+                heroTitle: 'التوازن في التواصل الاجتماعي', 
+                heroSubtitle: 'كيف تؤثر المنصات الرقمية على صحتنا وعلاقاتنا، والخطوات اللازمة لاستعادة السيطرة.',
+                heroButton: 'اكتشف الإيجابيات', 
+                mentalTitle: 'التأثيرات السلبية على الصحة العقلية',
+                cardMental1Title: 'وهم الكمال والمقارنة الاجتماعية',
+                cardMental1Text: 'رؤية نسخ منقحة ومثالية لحياة الآخرين تؤدي إلى خلق معايير غير واقعية، مما يقلل من الرضا الذاتي ويزيد من أعراض القلق والاكتئاب.',
+                cardMental2Title: 'العزلة الاجتماعية والشعور بالوحدة',
+                cardMental2Text: 'على الرغم من "التواصل" مع الآلاف، يؤدي التفاعل السطحي والزائف عبر الإنترنت إلى استبدال العلاقات الحقيقية، مما يعمق الشعور بالوحدة والعزلة.',
+                cardMental3Title: 'آلية إدمان الإشعارات',
+                cardMental3Text: 'تعمل الإشعارات والإعجابات كمكافآت عشوائية تحفز إفراز الدوبامين، مما يخلق حلقة إدمانية تجعل المستخدم يتفقد المنصات بشكل قهري.',
+                socialTitle: 'تفكيك العلاقات الاجتماعية والواقعية',
+                social1MainTitle: 'غياب الجودة في الحوار',
+                social1MainText: 'تتضاءل قدرة الأفراد على قراءة الإشارات غير اللفظية وإجراء محادثات عميقة، حيث يتم استبدالها بالرسائل النصية السريعة والرموز التعبيرية.',
+                social1List1: 'فقدان مهارات الاستماع الفعال.',
+                social1List2: 'ضعف التعاطف في التفاعلات.',
+                social1List3: 'تفضيل "الدردشة" على "اللقاء".',
+                social2MainTitle: 'التضحية بالخصوصية مقابل الاتصال',
+                social2MainText: 'تتطلب المنصات الاجتماعية مشاركة كميات هائلة من البيانات الشخصية، مما يعرض المستخدمين للمراقبة والاستهداف الإعلاني، ويقلل من وعيهم بقيمة الخصوصية.',
+                social2List1: 'الاستهداف الإعلاني المكثف.',
+                social2List2: 'خطر انتهاك البيانات.',
+                social2List3: 'التحكم في الرأي العام عبر الخوارزميات.',
+                
+                // نصوص القسم الجديد (الفوائد والاستخدام السليم)
+                benefitsTitle: 'التفاعل الإيجابي: فوائد التواصل والاستخدام السليم',
+                benefitsSubTitle: 'أهم الإيجابيات لشبكات التواصل',
+                benefit1Title: 'الوصول للمعلومات والتعلم',
+                benefit1Text: 'تعتبر مصدراً غنياً للمعرفة والأخبار العاجلة، وفرصة للتعلم الذاتي واكتساب مهارات جديدة من خلال المحتوى التعليمي المتخصص.',
+                benefit2Title: 'دعم الروابط البعيدة',
+                benefit2Text: 'تساعد في البقاء على اتصال مع الأصدقاء والعائلة الذين يعيشون بعيداً، وتكوين شبكات احترافية وعلمية عابرة للحدود الجغرافية.',
+                usageSubTitle: 'إرشادات الاستخدام الواعي',
+                usage1Title: 'تحقيق الهدف قبل التصفح:',
+                usage1Text: 'استخدم المنصة لغرض محدد (مثل قراءة خبر أو إرسال رسالة) ثم أغلقها فوراً.',
+                usage2Title: 'فلترة المحتوى بوعي:',
+                usage2Text: 'توقف عن متابعة الحسابات التي تستنزف طاقتك أو تثير مشاعر سلبية أو مقارنات غير مجدية.',
+                usage3Title: 'التحقق قبل المشاركة:',
+                usage3Text: 'تجنب نشر الشائعات أو المعلومات غير المؤكدة، وكن مساهماً إيجابياً في الحوار العام.',
+
+                solutionsTitle: 'خطوات نحو التوازن الاجتماعي الرقمي',
+                solutionsSubtitle: 'استعد سيطرتك وابنِ علاقات ذات معنى:',
+                sol1Title: 'الصيام الرقمي',
+                sol1Text: 'خصص أيامًا أو عطلات نهاية الأسبوع للانقطاع التام عن جميع منصات التواصل لتهدئة العقل وإعادة ضبطه.',
+                sol2Title: 'تقنية الدخول المخطط',
+                sol2Text: 'بدلاً من التصفح العشوائي، حدد أوقاتاً معينة (مثل 15 دقيقة مرتين يومياً) لـ "الدخول والانتهاء".',
+                sol3Title: 'أولوية العلاقات الواقعية',
+                sol3Text: 'اجعل الأولوية للقاء الأصدقاء والعائلة وجهًا لوجه. استثمر طاقتك في بناء الروابط العميقة لا السطحية.',
+                sol4Title: 'فرز المحتوى بعناية',
+                sol4Text: 'ألغِ متابعة أي حساب يجعلك تشعر بالسوء أو النقص، وركز على المحتوى الملهم والتعليمي.',
+                backToTop: 'عد إلى الأعلى',
+                footerCopy: 'Developed by: Mazen Ahmed Saad 2025',
+                footerPrivacy: 'سياسة الخصوصية',
+                footerContact: 'اتصل بنا',
+                toggleButton: 'EN / AR'
+            },
+            en: {
+                brandName: 'Social Balance',
+                navHome: 'Home',
+                navMental: 'Psychological Harms',
+                navSocial: 'Social Harms',
+                navBenefits: 'Benefits & Proper Usage', 
+                navSolutions: 'Practical Solutions',
+                heroTitle: 'Balance in Social Media', 
+                heroSubtitle: 'How digital platforms affect our health and relationships, and the steps needed to regain control.',
+                heroButton: 'Discover the Positives', 
+                mentalTitle: 'Negative Effects on Mental Health',
+                cardMental1Title: 'The Illusion of Perfection and Social Comparison',
+                cardMental1Text: 'Seeing edited and perfect versions of others\' lives leads to the creation of unrealistic standards, reducing self-satisfaction and increasing symptoms of anxiety and depression.',
+                cardMental2Title: 'Social Isolation and Loneliness',
+                cardMental2Text: 'Despite being "connected" to thousands, superficial and false interaction online replaces real relationships, deepening feelings of loneliness and isolation.',
+                cardMental3Title: 'The Notification Addiction Mechanism',
+                cardMental3Text: 'Notifications and likes act as random rewards that stimulate dopamine release, creating an addictive cycle that causes users to compulsively check platforms.',
+                socialTitle: 'Deterioration of Real-Life Social Relationships',
+                social1MainTitle: 'Lack of Quality in Dialogue',
+                social1MainText: 'Individuals\' ability to read non-verbal cues and engage in deep conversations diminishes, as these are replaced by quick text messages and emojis.',
+                social1List1: 'Loss of active listening skills.',
+                social1List2: 'Weakening of empathy in interactions.',
+                social1List3: 'Prioritizing "chatting" over "meeting".',
+                social2MainTitle: 'Sacrificing Privacy for Connectivity',
+                social2MainText: 'Social platforms require sharing huge amounts of personal data, exposing users to surveillance and ad targeting, and reducing their awareness of privacy\'s value.',
+                social2List1: 'Intense advertising targeting.',
+                social2List2: 'Risk of data breach.',
+                social2List3: 'Control of public opinion via algorithms.',
+
+                // New section texts (Benefits and Proper Usage)
+                benefitsTitle: 'Positive Interaction: Social Benefits and Proper Use',
+                benefitsSubTitle: 'Key Positives of Social Networks',
+                benefit1Title: 'Access to Information and Learning',
+                benefit1Text: 'They are a rich source of knowledge and breaking news, offering opportunities for self-learning and acquiring new skills through specialized educational content.',
+                benefit2Title: 'Supporting Long-Distance Connections',
+                benefit2Text: 'They help maintain contact with friends and family living far away, and build cross-border professional and academic networks.',
+                usageSubTitle: 'Guidelines for Conscious Use',
+                usage1Title: 'Achieve the Goal Before Browsing:',
+                usage1Text: 'Use the platform for a specific purpose (like reading news or sending a message) then close it immediately.',
+                usage2Title: 'Consciously Filter Content:',
+                usage2Text: 'Unfollow accounts that drain your energy, evoke negative emotions, or lead to futile comparisons.',
+                usage3Title: 'Verify Before Sharing:',
+                usage3Text: 'Avoid spreading rumors or unconfirmed information, and be a positive contributor to the public discourse.',
+
+                solutionsTitle: 'Steps Towards Digital Social Balance',
+                solutionsSubtitle: 'Regain your control and build meaningful relationships:',
+                sol1Title: 'Digital Fasting',
+                sol1Text: 'Dedicate days or weekends to a complete break from all social platforms to calm the mind and reset.',
+                sol2Title: 'Scheduled Entry Technique',
+                sol2Text: 'Instead of random browsing, set specific times (like 15 minutes twice daily) for "in and out" sessions.',
+                sol3Title: 'Prioritizing Real-Life Relationships',
+                sol3Text: 'Make meeting friends and family face-to-face a priority. Invest your energy in building deep, not superficial, connections.',
+                sol4Title: 'Curate Your Feed Carefully',
+                sol4Text: 'Unfollow any account that makes you feel bad or inadequate, and focus on inspiring and educational content.',
+                backToTop: 'Back to Top',
+                footerCopy: 'Developed by: Mazen Ahmed Saad 2025',
+                footerPrivacy: 'Privacy Policy',
+                footerContact: 'Contact Us',
+                toggleButton: 'AR / EN'
+            }
+        };
+
+        let currentLang = 'ar';
+
+        // دالة تطبيق الترجمة
+        function setLanguage(lang) {
+            currentLang = lang;
+            const direction = lang === 'ar' ? 'rtl' : 'ltr';
+            const toggleText = lang === 'ar' ? 'EN / AR' : 'AR / EN';
+            
+            // 1. تحديث اتجاه الصفحة
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', direction);
+            document.body.setAttribute('dir', direction);
+
+            // 2. تحديث المحتوى النصي
+            const keys = Object.keys(translations[lang]);
+            keys.forEach(key => {
+                const elements = document.querySelectorAll(`[data-key="${key}"]`);
+                elements.forEach(el => {
+                    // تحديث محتوى العناصر
+                    if (el.tagName === 'STRONG' || el.tagName === 'SPAN') {
+                         el.textContent = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+            });
+            
+            // 3. تحديث زر التبديل
+            const toggleButtonSpan = document.getElementById('language-toggle')?.querySelector('span');
+            if (toggleButtonSpan) {
+                toggleButtonSpan.textContent = toggleText;
+            }
+        }
+
+        // دالة تبديل اللغة
+        function toggleLanguage() {
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            setLanguage(newLang);
+        }
+
+        // ربط زر التبديل
+        document.getElementById('language-toggle')?.addEventListener('click', toggleLanguage);
+
+        // وظيفة التبديل لقائمة الجوال
+        function toggleMobileMenu() {
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+
+            if (button && menu) {
+                // تبديل الفئة 'hidden' لإظهار أو إخفاء القائمة
+                menu.classList.toggle('hidden');
+            }
+        }
+        
+        // ربط زر قائمة الجوال
+        document.getElementById('mobile-menu-button')?.addEventListener('click', toggleMobileMenu);
+
+        // إخفاء القائمة بعد النقر على أي رابط داخلها (لتحسين تجربة الجوال)
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                if (menu && !menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // تطبيق اللغة الافتراضية عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+             // إضافة السمة data-key للروابط التي تم نسيانها في التذييل لتجنب الأخطاء
+            document.querySelector('footer a:nth-child(1)')?.setAttribute('data-key', 'footerPrivacy');
+            document.querySelector('footer a:nth-child(2)')?.setAttribute('data-key', 'footerContact');
+
+            setLanguage('ar'); 
+        });
+
+
+        // وظيفة التمرير السلس 
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                
+                // منع التمرير لروابط التذييل الوهمية
+                if (targetId === '#' || targetId === null || targetId.length <= 1) {
+                    e.preventDefault();
+                    return; 
+                }
+
+                e.preventDefault();
+                // Find the target element
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Scroll smoothly to the element
+                    window.scrollTo({
+                        top: targetElement.offsetTop - (document.querySelector('header').offsetHeight), // Adjust for fixed header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
